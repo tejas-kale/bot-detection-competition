@@ -215,7 +215,35 @@
 * **Monitoring:** Implements both data and model performance monitoring.  
 * **Continual Learning:** Provides the trigger mechanism for when to retrain.
 
-## **13. User Story: Scheduled Retraining & Continual Learning Flow**
+## **13. User Story: AI Essay Generation for Data Augmentation**
+
+**Objective:** To generate high-quality AI essay samples using various language models to balance the training dataset and improve model robustness.
+
+**Context:** The competition training data contains severe class imbalance with only 3 AI-generated essays versus 1,375 human essays. The `train_prompts.csv` file provides `instructions` and `source_text` for two essay prompts, encouraging participants to generate additional AI samples. Creating a diverse collection of AI essays from different models and generation parameters will balance the dataset and help build a more robust detection system.
+
+**Acceptance Criteria:**
+* A generation pipeline is created that uses the `instructions` and `source_text` from `train_prompts.csv` to create essay prompts.
+* Multiple language models are integrated for essay generation:
+  * OpenAI models (GPT-4, GPT-4-turbo, GPT-3.5-turbo)
+  * Anthropic models (Claude 3.5 Sonnet, Claude 3 Haiku)  
+  * Google models (Gemini Pro, Gemini Flash)
+  * Open-source models (Llama 3, Mistral, etc.)
+* Generation parameters are varied to create diversity:
+  * Temperature settings (0.3, 0.7, 1.0, 1.2)
+  * Top-p values (0.8, 0.9, 0.95)
+  * Different prompt engineering techniques
+* Target generation: ~1,375 AI essays to match human essay count (split between both prompts).
+* Generated essays include metadata: model name, version, temperature, top_p, prompt_id, generation timestamp.
+* Data quality controls: minimum/maximum length validation, duplicate detection, format consistency.
+* Generated essays are saved in the same format as `train_essays.csv` with `generated=1`.
+* The expanded dataset is validated by re-running the EDA notebook to ensure realistic distributions.
+
+**MLOps Competition Criteria Fulfilled:**
+* **Data Engineering:** Addresses the core data challenge of class imbalance through systematic augmentation.
+* **Reproducibility:** Scripted generation process with documented parameters and model versions.
+* **Best Practices:** Quality controls and validation ensure generated data maintains integrity.
+
+## **14. User Story: Scheduled Retraining & Continual Learning Flow**
 
 **Objective:** To create a fully automated, scheduled pipeline that retrains and redeploys the model using fresh data.  
 
