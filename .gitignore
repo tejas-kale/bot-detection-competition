@@ -11,7 +11,18 @@ wheels/
 
 # Project-specific files
 .env
+.env.dev
+.env.prod
 Scratchpad.md
+
+# GCP service account keys
+config/gcp-service-account-*.json
+
+# Terraform files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate*
+terraform/terraform.tfvars
 
 # Tutorial files
 tutorials/
