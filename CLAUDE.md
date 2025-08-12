@@ -26,6 +26,8 @@ This is an MLOps competition project focused on building a comprehensive machine
 ### Development Practices
 - **Code Organisation**: Modular, reusable components following software engineering best practices
 - **Package Management**: Use `uv` package manager with dependencies specified in `pyproject.toml`
+- **Code Formatting**: All Python files must be formatted with `black` before committing
+- **Code Linting**: All Python files must be checked with `flake8` and linting errors fixed before committing
 - **Configuration Management**: Support two environments - `dev` and `prod`
 - **Environment Variables**: Use `.env` template files for managing environment-specific configurations
 - **Current Environment**: All development work should target `dev` environment
@@ -63,12 +65,15 @@ data/
 ### Operations That Can Be Performed Automatically
 Claude Code can execute the following operations without requesting permission:
 
-- **Git Operations**: Creating branches, making commits, merging, rebasing, pushing to GitHub
+- **Git Operations**: Creating feature branches, making commits, merging, rebasing, pushing feature branches to GitHub
+- **Branch Management**: Creating new feature branches for each user story (never work on main directly)
 - **File Operations**: Creating, modifying, deleting files and directories
 - **Package Management**: Installing, updating, removing Python packages using `uv`
+- **Code Quality**: Running `black` to format Python files and `flake8` to check for linting errors
 - **Script Execution**: Running Python scripts that Claude Code writes
 - **Infrastructure Planning**: Running `terraform plan` and `terraform validate`
 - **Documentation Generation**: Creating and updating documentation files
+- **Pull Request Creation**: Creating PRs from feature branches to main branch
 
 ### Operations Requiring Confirmation
 - **Infrastructure Changes**: `terraform apply` or `terraform destroy` operations
@@ -76,11 +81,16 @@ Claude Code can execute the following operations without requesting permission:
 - **System-Level Changes**: Modifications to system-wide configurations
 
 ### Git Workflow
+- **Branch Creation**: Always create a new feature branch before starting work on any user story (naming: `feature/user-story-[number]-[short-description]`)
+- **Never work directly on main branch** - all development must happen on feature branches
 - Make frequent commits during development for easy reverting
+- **Pre-commit Quality Checks**: Before each commit, ensure all Python files are formatted with `black` and pass `flake8` linting checks
 - After completing user story implementation:
-  1. Squash all commits into a single, well-described commit
-  2. Push changes to GitHub
-  3. Create a Pull Request with comprehensive description of changes
+  1. Run final code quality checks (`black` formatting and `flake8` linting)
+  2. Squash all commits into a single, well-described commit on the feature branch
+  3. Push the feature branch to GitHub
+  4. **Always create a Pull Request** from the feature branch to main with comprehensive description of changes
+  5. Do not merge the PR automatically - leave it open for review
 
 ## Documentation Requirements
 After completing each user story, create a tutorial document explaining the implementation:
